@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zrebhi <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: zrebhi <zrebhi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 11:38:12 by zrebhi            #+#    #+#             */
-/*   Updated: 2022/11/17 12:14:10 by zrebhi           ###   ########lyon.fr   */
+/*   Updated: 2023/02/07 18:12:14 by zrebhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	if (n == 0)
 		return (0);
 	while (str2[i] && str1[i] == str2[i] && i < n - 1)
-			i++;
+		i++;
 	if (str1[i] - str2[i] > 0)
 		return (1);
 	if (str1[i] - str2[i] == 0)
