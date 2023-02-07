@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <fcntl.h>
+# include <sys/wait.h>
 # include "../libft/includes/libft.h"
 
 typedef int	t_pid;

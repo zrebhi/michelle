@@ -6,7 +6,7 @@
 /*   By: zrebhi <zrebhi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 13:17:49 by zrebhi            #+#    #+#             */
-/*   Updated: 2023/01/20 15:10:51 by zrebhi           ###   ########.fr       */
+/*   Updated: 2023/01/17 13:49:57 by zrebhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,6 @@ void	ft_exec(t_pipex *data)
 	ft_putstr_fd("command not found: \n", 2);
 }
 
-void	ft_gosleep(t_pipex *data)
-{
-	data->cmds = malloc(sizeof(char *) * 3);
-	if (!data->cmds)
-		ft_free_paths(data);
-	data->cmds[0] = "sleep";
-	data->cmds[1] = "0";
-	data->cmds[2] = 0;
-	execve("/bin/sleep", data->cmds, data->env);
-	ft_free_all(data);
-}
-
 /* Handles everything related to children processes. */
 
 void	ft_incubator(t_pipex *data, int i)
@@ -83,7 +71,7 @@ void	ft_incubator(t_pipex *data, int i)
 		return (perror("dup2 end[1]"), ft_free_paths(data));
 	data->cmds = ft_cmd_args(data->argv[i + 2 + data->heredoc]);
 	ft_exec(data);
-	ft_gosleep(data);
+	return (ft_free_all(data));
 }
 
 /* Creates a child process for every command and links them together
