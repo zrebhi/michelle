@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgresse <bgresse@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zrebhi <zrebhi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 10:10:39 by bgresse           #+#    #+#             */
-/*   Updated: 2023/01/25 15:34:27 by bgresse          ###   ########.fr       */
+/*   Updated: 2023/02/07 17:19:01 by zrebhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
+# include <stdint.h>
 
 typedef struct s_list
 {
@@ -74,6 +75,8 @@ char		*ft_itoa(int n);
 char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 
 char		**ft_split(char const *s, char c);
+char		**ft_split_quotes(char const *s, char c);
+void		ft_quotes(char const *s, int *j);
 
 t_list		*ft_lstnew(void *content);
 t_list		*ft_lstlast(t_list *lst);
