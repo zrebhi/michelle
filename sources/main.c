@@ -8,45 +8,28 @@ void	data_init(int argc, char **argv, char **envp, t_minishell *data)
 	data->envp = envp;
 }
 
-char	*ft_remove_newline(char *buffer)
+void    ft_prompt(t_minishell *data)
 {
-	int	i;
-	int	len;
-	char *no_line;
+    char    	*buffer = NULL;
 
-	len = ft_strlen(buffer);
-	no_line = malloc(sizeof(char) * len);
-	i = -1;
-	while (buffer[++i] != '\n')
-		no_line[i] = buffer[i];
-	no_line[i] = 0;
-	free(buffer);
-	return (no_line);
+    while (1) 
+    {
+        buffer = readline("Oui Michelle ?$> ");
+        if (!buffer)
+            break;
+		data->cmds = ft_cmdlist(buffer);
+        pipex(data);
+        printf("\n");
+    }
+    printf("Nique ton oncle !");
 }
 
-void	ft_prompt(t_minishell *data)
+int    main(int argc, char **argv, char **envp)
 {
-	char	*buffer;
+    t_minishell data;
 
-	write(1, "michelle$> ", 11);
-	while (1) 
-	{
-		buffer = get_next_line(STDIN_FILENO);
-		buffer = ft_remove_newline(buffer);
-		if (!buffer)
-			break ;
-		exec_cmd(data, buffer);
-		write(1, "michelle$> ", 11);
-	}
-	ft_putstr_fd("Ciao, Bye !\n", 1);
-	free(buffer);
-}
-
-int	main(int argc, char **argv, char **envp)
-{
-	t_minishell	data;
-
-	data_init(argc, argv, envp, &data);
-	ft_prompt(&data);
-	return (0);
+    data_init(argc, argv, envp, &data);
+    ft_prompt(&data);
+    pipex(&data);
+    return (0);
 }

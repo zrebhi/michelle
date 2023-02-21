@@ -5,6 +5,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/wait.h>
+#include <fcntl.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
 #ifndef PATH_MAX
 # define PATH_MAX 1024
@@ -12,27 +16,38 @@
 
 typedef int	t_pid;
 
+typedef struct s_cmdlist
+{
+	char            	**full_cmd;
+	int             	infile;
+	int	            	outfile;
+	t_pid				cmd_pid;
+    struct s_cmdlist	*next;
+}		   			 	t_cmdlist;
+
 typedef struct s_minishell
 {
-	char	**paths;
+	char		**paths;
 
-	char	**cmds;
+	t_cmdlist	*cmds;
 
-	char	**envp;
-	char	**argv;
-	int		argc;
+	char		**envp;
+	char		**argv;
+	int			argc;
 
-	int		fd_infile;
-	int		fd_outfile;
+	int			end[2];
+}				t_minishell;
 
-	int		end[2];
-	t_pid	*children;
-}			t_minishell;
+char		**ft_pathfinder(char **envp);
 
-char	**ft_pathfinder(char **envp);
+char		**ft_cmd_args(char *cmd);
 
-char	**ft_cmd_args(char *cmd);
+void		exec_cmd(t_minishell *data, char *buffer);
 
-void	exec_cmd(t_minishell *data, char *buffer);
+t_cmdlist	*ft_cmdlist(char *cmd_line);
+
+void		ft_print_cmdlist(t_cmdlist *cmds);
+
+void		pipex(t_minishell *data);
 
 #endif

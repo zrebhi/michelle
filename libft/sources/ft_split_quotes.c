@@ -6,11 +6,15 @@
 /*   By: zrebhi <zrebhi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 19:37:03 by zrebhi            #+#    #+#             */
-/*   Updated: 2023/02/07 17:22:36 by zrebhi           ###   ########.fr       */
+/*   Updated: 2023/02/15 16:25:24 by zrebhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
+
+void		ft_quotes(char const *s, int *j);
+int			ft_separator(char c, char *charset);
+char		**ft_free_strs(char **strs);
 
 static int	ft_words(char const *s, char c)
 {
@@ -29,7 +33,7 @@ static int	ft_words(char const *s, char c)
 			words++;
 			i++;
 		}
-		while (s[i] && s[i] != c && s[i] != '"')
+		while (s[i] && s[i] != c && !ft_separator(s[i], "\'\""))
 			i++;
 	}
 	return (words);
@@ -48,20 +52,6 @@ static char	*ft_dupstr(char const *s, int i, int j)
 		dup[x++] = s[i++];
 	dup[x] = 0;
 	return (dup);
-}
-
-static char	**ft_free_strs(char **strs)
-{
-	int	i;
-
-	i = 0;
-	while (strs[i])
-	{
-		free(strs[i]);
-		i++;
-	}
-	free(strs);
-	return (0);
 }
 
 static	char	**ft_lines(char const *s, char c, char **strs, int x)

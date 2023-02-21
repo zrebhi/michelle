@@ -16,16 +16,16 @@ void	ft__pwd(void)
 		perror("getcwd()");
 }
 
-int	ft_built_ins(data, buffer);
-{
-	const char	*built_ins[] = {"pwd", "cd", NULL};
-	int	i;
+// int	ft_built_ins(data, buffer)
+// {
+// 	const char	*built_ins[] = {"pwd", "cd", NULL};
+// 	int	i;
 
-	i = -1;
-	while (built_ins[++i])
-		if (!strcmp(built_ins[i], buffer))
-			return (1);
-	return (0);
-}
+// 	i = -1;
+// 	while (built_ins[++i])
+// 		if (!strcmp(built_ins[i], buffer))
+// 			return (1);
+// 	return (0);
+// }
 
 

@@ -6,7 +6,7 @@
 /*   By: zrebhi <zrebhi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 10:10:39 by bgresse           #+#    #+#             */
-/*   Updated: 2023/02/07 17:19:01 by zrebhi           ###   ########.fr       */
+/*   Updated: 2023/02/20 15:09:11 by zrebhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,15 @@ char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 
 char		**ft_split(char const *s, char c);
 char		**ft_split_quotes(char const *s, char c);
-void		ft_quotes(char const *s, int *j);
+char		**ft_split_tokens(char const *s, char *charset);
+char		**ft_split_slash(char const *s, char c);
 
 t_list		*ft_lstnew(void *content);
 t_list		*ft_lstlast(t_list *lst);
 t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
-void		ft_lstadd_front(t_list **alst, t_list *new);
-void		ft_lstadd_back(t_list **alst, t_list *new);
+void		ft_lstadd_front(t_list **lst, t_list *new);
+void		ft_lstadd_back(t_list **lst, t_list *new);
 void		ft_lstdelone(t_list *lst, void (*del)(void*));
 void		ft_lstclear(t_list **lst, void (*del)(void*));
 void		ft_lstiter(t_list *lst, void (*f)(void *));
@@ -98,6 +99,8 @@ char		*ft_strstr(char *str, char *to_find);
 char		*ft_strcat(char *dest, char *src);
 int			ft_strcmp(char *s1, char *s2);
 char		*ft_strncat(char *dest, char *src, unsigned int nb);
+
+char		*get_next_line(int fd);
 
 t_m_free	*ft_free_init(void);
 

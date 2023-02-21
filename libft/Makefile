@@ -17,7 +17,8 @@ SRC            :=	ft_isalnum.c ft_isprint.c ft_memcmp.c  ft_putchar_fd.c ft_spli
 					ft_sort_int_tab.c ft_rev_int_tab.c ft_strcpy.c ft_strncpy.c \
 					ft_strcat.c ft_strcmp.c ft_strstr.c ft_strncat.c ft_free.c \
 					ft_free_add.c ft_free_remove.c ft_free_init.c ft_free_size.c \
-					ft_free_malloc.c ft_quotes.c
+					ft_free_malloc.c ft_split_utils.c ft_split_tokens.c ft_split_slash.c\
+					get_next_line.c get_next_line_utils.c
 
 OBJ_DIR        :=    build/
 OBJ            :=    $(SRC:%.c=$(OBJ_DIR)%.o)
