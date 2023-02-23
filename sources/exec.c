@@ -6,7 +6,7 @@
 /*   By: zrebhi <zrebhi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 13:17:49 by zrebhi            #+#    #+#             */
-/*   Updated: 2023/02/21 16:57:39 by zrebhi           ###   ########.fr       */
+/*   Updated: 2023/02/23 12:33:51 by zrebhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,17 @@ void	ft_exec(t_minishell *data)
 
 void	ft_incubator(t_minishell *data)
 {
-	if (data->cmds->outfile == -5)
-		if (close(data->end[0]) == -1)
-			return (perror("close pipe"));
+	if (close(data->end[0]) == -1)
+		return (perror("close pipe"));
 	if (data->cmds->infile > 0)
 		if (dup2(data->cmds->infile, STDIN_FILENO) == -1)
 			return ;
 	if (data->cmds->outfile > 1)
 		if (dup2(data->cmds->outfile, STDOUT_FILENO) == -1)
 			return ;
-	if (data->cmds->outfile == -5)
-	{
+	if (data->cmds->outfile == 0)
 		if (dup2(data->end[1], STDOUT_FILENO) == -1)
 			return (perror("dup2 end[1]"));
-	}
 	ft_exec(data);
 	return ;
 }
@@ -64,35 +61,41 @@ void	ft_incubator(t_minishell *data)
 /* Creates a child process for every command and links them together
 with pipes */
 
+void	pipex_commands(t_minishell *data)
+{
+	while (data->cmds)
+	{
+		if (pipe(data->end) == -1)
+			return ((void)perror("pipe"));
+		data->cmds->cmd_pid = fork();
+		if (data->cmds->cmd_pid == -1)
+			return ((void)perror("Fork"));
+		if (data->cmds->cmd_pid != 0 && close(data->end[1]) == -1)
+			return ((void)perror("close pipe"));
+		if (data->cmds->cmd_pid == 0)
+			ft_incubator(data);
+		if (dup2(data->end[0], STDIN_FILENO) == -1)
+			return ((void)perror("dup2 end[0]"));
+		if (close(data->end[0]) == -1)
+			return ((void)perror("close pipe"));
+		data->cmds = data->cmds->next;
+	}
+}
+
+/* Runs our commands with pipex_commands, then closes our remaining fds
+and waits for children processes to be done */
+
 void	pipex(t_minishell *data)
 {
 	int			status;
 	t_cmdlist	*head;
 
 	head = data->cmds;
-	while (data->cmds)
-	{
-		if (data->cmds->outfile == -5)
-			if (pipe(data->end) == -1)
-				return ((void)perror("pipe"));
-		data->cmds->cmd_pid = fork();
-		if (data->cmds->cmd_pid == -1)
-			return ((void)perror("Fork"));
-		if (data->cmds->cmd_pid == 0)
-			ft_incubator(data);
-		if (data->cmds->outfile == -5)
-		{
-			if (dup2(data->end[0], STDIN_FILENO) == -1)
-				return ((void)perror("dup2 end[0]"));
-			if (close(data->end[0]) == -1 || close(data->end[1]) == -1)
-				return ((void)perror("close pipe"));
-		}
-		data->cmds = data->cmds->next;
-	}
+	pipex_commands(data);
 	data->cmds = head;
 	while (data->cmds)
 	{
-		if (data->cmds->outfile != -1 && close(data->cmds->outfile) == -1)
+		if (data->cmds->outfile > 1 && close(data->cmds->outfile) == -1)
 			perror("close outfile");
 		data->cmds = data->cmds->next;
 	}
@@ -102,4 +105,5 @@ void	pipex(t_minishell *data)
 		waitpid(data->cmds->cmd_pid, &status, 0);
 		data->cmds = data->cmds->next;
 	}
+	exit (1);
 }

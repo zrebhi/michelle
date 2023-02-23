@@ -1,5 +1,7 @@
 #include "../includes/minishell.h"
 
+/* The following 3 functions allow ft_newnode to work.*/
+
 t_cmdlist	*ft_cmdnew(void)
 {
 	t_cmdlist	*new;
@@ -52,13 +54,13 @@ void	ft_newnode(t_cmdlist **cmds)
 void	ft_print_cmdlist(t_cmdlist *cmds)
 {
 	int	i;
-	while (cmds)
-	{
+	// while (cmds)
+	// {
 		i = -1;
 		while (cmds->full_cmd[++i])
 			printf("%s\n", cmds->full_cmd[i]);
 		printf("infile : %d\noutfile : %d\n", cmds->infile, cmds->outfile);
-		cmds = cmds->next;
-		printf("\n");
-	}
+	// 	cmds = cmds->next;
+	// 	printf("\n");
+	// }
 }

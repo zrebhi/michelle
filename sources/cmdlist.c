@@ -20,7 +20,7 @@ void    ft_redirection(char **parsed_line, t_cmdlist *cmds)
 		{
             ft_newnode(&cmds);
 			if (cmds->outfile == 1)
-				cmds->outfile = -5;
+				cmds->outfile = 0;
 			cmds = cmds->next;
 		}
 		else if (*parsed_line[i] == '<')
@@ -51,7 +51,6 @@ void	ft_fullcmds(char **parsed_line, t_cmdlist *cmds)
 	j = 0;
 	while(parsed_line[++i])
 	{
-		printf("%d : %s\n", i, parsed_line[i]);
 		if (*parsed_line[i] == '|')
 		{
 			cmds->full_cmd[j] = 0;

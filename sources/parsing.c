@@ -6,7 +6,7 @@
 /*   By: zrebhi <zrebhi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 13:18:32 by zrebhi            #+#    #+#             */
-/*   Updated: 2023/02/20 15:17:03 by zrebhi           ###   ########.fr       */
+/*   Updated: 2023/02/23 12:54:39 by zrebhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,3 @@ char	**ft_pathfinder(char **envp)
 	return (paths);
 }
 
-/* Retrieves the command and its args and stores it in a char **.
-If there are args, the command and its args MUST be between quotes
-(i.e ls, "ls -a"). */
-
-char	**ft_cmd_args(char *cmd)
-{
-	char	**cmds;
-	
-	if (!cmd[0])
-		return (0);
-	cmds = ft_split(cmd, ' ');
-	return (cmds);
-}
