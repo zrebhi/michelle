@@ -6,10 +6,11 @@
 /*   By: zrebhi <zrebhi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 19:37:03 by zrebhi            #+#    #+#             */
-/*   Updated: 2023/02/21 16:36:40 by zrebhi           ###   ########.fr       */
+/*   Updated: 2023/02/23 13:09:34 by zrebhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
 #include "../includes/libft.h"
 
 void		ft_quotes(char const *s, int *j);
@@ -59,7 +60,7 @@ static char	*ft_dupstr(char const *s, int i, int j)
 	dup[x] = 0;
 	return (dup);
 }
-
+*/
 typedef struct s_split
 {
 	int		i;

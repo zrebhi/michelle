@@ -6,7 +6,7 @@ INC_DIR        :=    includes/
 HEADERS        := $(addprefix $(INC_DIR), $(INC))
 
 SRC_DIR        :=    sources/
-SRC            :=    main.c exec.c parsing.c cmdlist.c cmd
+SRC            :=    main.c exec.c parsing.c cmdlist.c cmdlist_utils.c
 
 LIBFT_DIR	   :=    libft/
 LIBFT_A		   :=    $(LIBFT_DIR)libft.a
@@ -36,7 +36,7 @@ _WHITE      :=    \x1b[37m
 all: build_libft $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT_A) $(INC_DIR)/$(INC) Makefile
-	@$(CC) $(CC_FLAGS) $(OBJ) $(LIBFT_A) -o $@
+	@$(CC) $(CC_FLAGS) $(OBJ) $(LIBFT_A) -lreadline -o $@
 	@echo "> minishell Done!\n"
 
 # Libft Makefile
