@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmdlist_utils.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zrebhi <zrebhi@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/23 16:03:53 by zrebhi            #+#    #+#             */
+/*   Updated: 2023/02/23 16:07:27 by zrebhi           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 /* The following 3 functions allow ft_newnode to work.*/
@@ -45,8 +57,8 @@ void	ft_cmdadd_back(t_cmdlist **lst, t_cmdlist *new)
 
 void	ft_newnode(t_cmdlist **cmds)
 {
-	t_cmdlist *new;
-	
+	t_cmdlist	*new;
+
 	new = ft_cmdnew();
 	ft_cmdadd_back(cmds, new);
 }
@@ -54,13 +66,14 @@ void	ft_newnode(t_cmdlist **cmds)
 void	ft_print_cmdlist(t_cmdlist *cmds)
 {
 	int	i;
-	// while (cmds)
-	// {
+
+	while (cmds)
+	{
 		i = -1;
 		while (cmds->full_cmd[++i])
 			printf("%s\n", cmds->full_cmd[i]);
 		printf("infile : %d\noutfile : %d\n", cmds->infile, cmds->outfile);
-	// 	cmds = cmds->next;
-	// 	printf("\n");
-	// }
+		cmds = cmds->next;
+		printf("\n");
+	}
 }

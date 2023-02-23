@@ -6,7 +6,7 @@
 /*   By: zrebhi <zrebhi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 13:18:32 by zrebhi            #+#    #+#             */
-/*   Updated: 2023/02/23 12:54:39 by zrebhi           ###   ########.fr       */
+/*   Updated: 2023/02/23 15:45:45 by zrebhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,3 @@ char	**ft_pathfinder(char **envp)
 	paths = ft_split_slash(paths_line, ':');
 	return (paths);
 }
-
