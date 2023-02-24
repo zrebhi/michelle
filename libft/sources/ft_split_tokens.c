@@ -6,7 +6,7 @@
 /*   By: zrebhi <zrebhi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 19:37:03 by zrebhi            #+#    #+#             */
-/*   Updated: 2023/02/24 16:10:50 by zrebhi           ###   ########.fr       */
+/*   Updated: 2023/02/24 20:17:59 by zrebhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,14 @@ static int	ft_words(char const *s, char *charset)
 		while (s[i] && ft_separator(s[i], " "))
 			i++;
 		ft_quotes(s, &i);
-		while (ft_separator(s[i], charset))
+		if (ft_separator(s[i], charset))
 		{
 			words++;
 			i++;
+			continue;
 		}
-		ft_quotes(s, &i);
 		if (!ft_separator(s[i], " ") && s[i])
-		{
 			words++;
-			i++;
-		}
 		while (s[i] && !ft_separator(s[i], charset) && \
 			!ft_separator(s[i], " "))
 		{
@@ -133,12 +130,12 @@ char	**ft_split_tokens(char const *s, char *charset)
 // int	main()
 // {
 // 	int	i;
-// 	char *line = "ls |> out";
+// 	char *line = "echo \"salut\"";
 // 	char **strs;
 	
 // 	i = -1;
 // 	strs = ft_split_tokens(line, "<|>");
-// 	printf("%d words\n", ft_words(line, "<|>"));
+// 	printf("%d words\n", ft_words(line, "xyz"));
 // 	printf("---------------\n");
 // 	while(strs[++i])
 // 	{
