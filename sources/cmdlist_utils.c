@@ -6,7 +6,7 @@
 /*   By: zrebhi <zrebhi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:03:53 by zrebhi            #+#    #+#             */
-/*   Updated: 2023/02/23 16:07:27 by zrebhi           ###   ########.fr       */
+/*   Updated: 2023/02/23 17:20:04 by zrebhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_cmdlist	*ft_cmdnew(void)
 	new->full_cmd = 0;
 	new->infile = 0;
 	new->outfile = 1;
+	new->here_doc = 0;
 	new->next = 0;
 	return (new);
 }

@@ -6,7 +6,7 @@
 /*   By: zrebhi <zrebhi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:02:59 by zrebhi            #+#    #+#             */
-/*   Updated: 2023/02/23 17:08:12 by zrebhi           ###   ########.fr       */
+/*   Updated: 2023/02/24 16:12:01 by zrebhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_prompt(t_minishell *data)
 			break ;
 		add_history(buffer);
 		data->cmds = ft_cmdlist(buffer);
-		ft_print_cmdlist(data->cmds);
+//		ft_print_cmdlist(data->cmds);
 		pid = fork();
 		if (pid == 0)
 			pipex(data);

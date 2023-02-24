@@ -6,7 +6,7 @@
 /*   By: zrebhi <zrebhi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 19:37:03 by zrebhi            #+#    #+#             */
-/*   Updated: 2023/02/23 15:50:29 by zrebhi           ###   ########.fr       */
+/*   Updated: 2023/02/24 16:10:50 by zrebhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ static void	ft_lines2(char const *s, char *charset, t_split *lines)
 	while (s[lines->j] && !ft_separator(s[lines->j], charset) && \
 		!ft_separator(s[lines->j], " "))
 	{
-		lines->j++;
 		ft_quotes(s, &lines->j);
+		lines->j++;
 	}
 	if (ft_separator(s[lines->j], charset) || \
 	ft_separator(s[lines->j], " ") || (!s[lines->j] && \
@@ -98,19 +98,16 @@ static char	**ft_lines(char const *s, char *charset, t_split *lines)
 	{
 		while (s[lines->i] && ft_separator(s[lines->i], " "))
 			lines->i++;
-		while (ft_separator(s[lines->i], charset))
+		if (ft_separator(s[lines->i], charset))
 		{
-
 			lines->strs[lines->x] = ft_dupstr(s, lines->i, lines->i + 1);
 			if (lines->strs[lines->x] == 0)
 				return (ft_free_strs(lines->strs));
 			lines->i++;
 			lines->x++;
+			continue;
 		}
-		while (s[lines->i] && ft_separator(s[lines->i], " "))
-			lines->i++;
 		lines->j = lines->i;
-		ft_quotes(s, &lines->j);
 		ft_lines2(s, charset, lines);
 	}
 	return (lines->strs);
@@ -132,3 +129,19 @@ char	**ft_split_tokens(char const *s, char *charset)
 		lines.strs[ft_words(s, charset)] = 0;
 	return (lines.strs);
 }
+
+// int	main()
+// {
+// 	int	i;
+// 	char *line = "ls |> out";
+// 	char **strs;
+	
+// 	i = -1;
+// 	strs = ft_split_tokens(line, "<|>");
+// 	printf("%d words\n", ft_words(line, "<|>"));
+// 	printf("---------------\n");
+// 	while(strs[++i])
+// 	{
+// 		printf("strs[%d] :%s\n", i, strs[i]);
+// 	}
+// }

@@ -16,7 +16,7 @@ OBJ            :=    $(SRC:%.c=$(OBJ_DIR)%.o)
 
 # Compiler options
 CC            :=    cc
-CC_FLAGS      :=    -Wextra -Werror -Wall #-g3 -fsanitize=address
+CC_FLAGS      :=    -Wextra -Werror -Wall -g #-fsanitize=address
 DEBUG_FLAG    :=    -ggdb3
 
 # define standard colors

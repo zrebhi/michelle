@@ -21,6 +21,8 @@ typedef struct s_cmdlist
 	char            	**full_cmd;
 	int             	infile;
 	int	            	outfile;
+	int					here_doc;
+	char				*limiter;
 	t_pid				cmd_pid;
     struct s_cmdlist	*next;
 }		   			 	t_cmdlist;

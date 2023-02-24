@@ -6,7 +6,7 @@
 /*   By: zrebhi <zrebhi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:12:12 by zrebhi            #+#    #+#             */
-/*   Updated: 2023/02/23 17:03:16 by zrebhi           ###   ########.fr       */
+/*   Updated: 2023/02/24 16:13:20 by zrebhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,13 @@ void	ft_redirect_outfile_append(char **parsed_line, t_cmdlist *cmds, int *i)
 	(*i)++;
 }
 
+void	ft_redirect_heredoc(char **parsed_line, t_cmdlist *cmds, int *i)
+{
+	cmds->here_doc = 1;
+	cmds->limiter = parsed_line[(*i) + 2];
+	(*i)++;
+}
+
 void	ft_redirection(char **parsed_line, t_cmdlist *cmds)
 {
 	int	i;
@@ -61,11 +68,11 @@ void	ft_redirection(char **parsed_line, t_cmdlist *cmds)
 	{
 		if (*parsed_line[i] == '|')
 			ft_redirect_pipe(&cmds);
-		// else if (*parsed_line[i] == '<' && *parsed_line[i + 1] == '<')
-		// 	ft_redirect_heredoc
+		else if (*parsed_line[i] == '<' && *parsed_line[i + 1] == '<')
+			ft_redirect_heredoc(parsed_line, cmds, &i);
 		else if	(*parsed_line[i] == '<')
 			ft_redirect_infile(parsed_line, cmds, i);
-		else if (*parsed_line[i] == '>' && *parsed_line[i + 1] == '>')
+		else if (parsed_line[i + 1] && *parsed_line[i] == '>' && *parsed_line[i + 1] == '>')
 			ft_redirect_outfile_append(parsed_line, cmds, &i);
 		else if (*parsed_line[i] == '>')
 			ft_redirect_outfile(parsed_line, cmds, i);
@@ -96,7 +103,7 @@ void	ft_fullcmds(char **parsed_line, t_cmdlist *cmds)
 		{
 			if (parsed_line[i + 1])	
 				i++;
-			if (*parsed_line[i] == '>')
+			if (*parsed_line[i] == '>' && parsed_line[i + 1])
 				i++;
 		}
 		else

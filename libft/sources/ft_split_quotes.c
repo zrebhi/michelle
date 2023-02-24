@@ -6,7 +6,7 @@
 /*   By: zrebhi <zrebhi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 19:37:03 by zrebhi            #+#    #+#             */
-/*   Updated: 2023/02/23 14:05:47 by zrebhi           ###   ########.fr       */
+/*   Updated: 2023/02/24 15:14:31 by zrebhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,6 @@ static	char	**ft_lines(char const *s, char c, char **strs, int x)
 		}
 		if (s[j] == c || (!s[j] && s[j - 1] != c))
 		{
-			// printf("i : %s.\n", &s[i]);
-			// printf("j : %s.\n", &s[j]);
 			strs[x] = ft_dupstr(s, i, j);
 			printf("strs[%d] : %s\n", x, strs[x]);
 			if (strs[x] == 0)
@@ -104,15 +102,15 @@ char	**ft_split_quotes(char const *s, char c)
 	return (strs);
 }
 
-int	main()
-{
-	int	i;
-	char *line = "echo nique\"ton\"oncle";
-	char **strs;
+// int	main()
+// {
+// 	int	i;
+// 	char *line = "echo nique\"ton\"oncle";
+// 	char **strs;
 	
-	i = -1;
-	strs = ft_split_quotes(line, ' ');
-	printf("---------------\n");
-	while(strs[++i])
-		printf("strs[%d] : %s\n", i, strs[i]);
-}
+// 	i = -1;
+// 	strs = ft_split_quotes(line, ' ');
+// 	printf("---------------\n");
+// 	while(strs[++i])
+// 		printf("strs[%d] : %s\n", i, strs[i]);
+// }
