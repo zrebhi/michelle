@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zrebhi <zrebhi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bgresse <bgresse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 16:45:19 by zrebhi            #+#    #+#             */
-/*   Updated: 2023/02/24 19:59:15 by zrebhi           ###   ########.fr       */
+/*   Updated: 2023/02/27 23:53:28 by bgresse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,7 @@ static void	ft_simple_quotes(char const *s, int *j)
 		i++;
 	if (s[i] == '\'')
 		while (s[(*j)] && s[(*j)] != '\'')
-		{
-			printf("s[%d] :%c\n", (*j), s[(*j)]);
 			(*j)++;
-		}
 }
 
 static void	ft_double_quotes(char const *s, int *j)
