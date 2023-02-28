@@ -6,7 +6,7 @@
 /*   By: zrebhi <zrebhi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 19:18:09 by bgresse           #+#    #+#             */
-/*   Updated: 2023/02/24 20:17:47 by zrebhi           ###   ########.fr       */
+/*   Updated: 2023/02/28 12:38:12 by zrebhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,52 +78,6 @@ static char	*ft_expand_string(t_env **head, char *string)
 	free(string);
 	return (new_string);
 }
-
-char	*ft_strjoin_char(char const *str, char c)
-{
-	char	*new_str;
-	size_t	len;
-
-	if (!str)
-		len = 1;
-	else
-		len = ft_strlen(str) + 2;
-	new_str = (char *)malloc(sizeof(char) * len);
-	if (!new_str)
-		return (NULL);
-	if (str)
-	{
-		strcpy(new_str, str);
-		strcpy(new_str + ft_strlen(str), &c);
-	}
-	else
-	{
-		new_str[0] = c;
-		new_str[1] = '\0';
-	}
-	return (new_str);
-}
-
-// char	*ft_remove_quotes(char *string)
-// {
-// 	size_t	i;
-// 	char	*new_string;
-
-// 	new_string = ft_strdup("");
-// 	i = 0;
-// 	while (string[i])
-// 	{
-// 		if (string[i] == SQUOTE || string[i] == DQUOTE)
-// 		{
-// 			i++;
-// 			continue;
-// 		}
-// 		new_string = ft_strjoin_char(new_string, string[i]);
-// 		i++;
-// 	}
-// 	free(string);
-// 	return (new_string);
-// }
 
 char	**ft_remove_quotes(char **strs)
 {

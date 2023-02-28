@@ -6,7 +6,7 @@
 /*   By: zrebhi <zrebhi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:02:59 by zrebhi            #+#    #+#             */
-/*   Updated: 2023/02/24 20:26:10 by zrebhi           ###   ########.fr       */
+/*   Updated: 2023/02/28 13:32:16 by zrebhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,21 @@ static char    *get_prompt(t_env *head, char *key)
     return (""GREEN"➜  "CYAN"guest"PURPLE"@minishell > "RESET"");
 }
 
+void	ft_special_builtins(t_minishell *data)
+{
+	if (!data->cmds->next)
+	{
+		if (!strcmp(data->cmds->full_cmd[0], "cd"))
+			return (ft_built_in_cd(data->cmds->full_cmd));
+		if (!strcmp(data->cmds->full_cmd[0], "exit"))
+			return (ft_built_in_exit());
+		if (!strcmp(data->cmds->full_cmd[0], "export") && data->cmds->full_cmd[1])
+			return (ft_built_in_export(&data->head_env, data->cmds->full_cmd));
+		if (!strcmp(data->cmds->full_cmd[0], "unset"))
+			return (ft_built_in_unset(&data->head_env, data->cmds->full_cmd[1]));
+	}
+}
+
 void	ft_prompt(t_minishell *data)
 {
 	char		*buffer;
@@ -51,7 +66,8 @@ void	ft_prompt(t_minishell *data)
 			break ;
 		add_history(buffer);
 		data->cmds = ft_cmdlist(buffer, data);
-//		ft_print_cmdlist(data->cmds);
+		// ft_print_cmdlist(data->cmds);
+		ft_special_builtins(data);
 		pid = fork();
 		if (pid == 0)
 			pipex(data);

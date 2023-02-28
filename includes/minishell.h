@@ -14,8 +14,6 @@
 # define PATH_MAX 1024
 #endif
 
-typedef int	t_pid;
-
 #define SQUOTE 39
 #define DQUOTE 34
 #define DOLLAR 36
@@ -28,6 +26,8 @@ typedef int	t_pid;
 #define CYAN "\033[1;36m"
 #define WHITE "\033[1;37m"
 #define RESET "\033[0m"
+
+typedef int	t_pid;
 
 typedef struct s_cmdlist
 {
@@ -62,16 +62,24 @@ typedef struct s_minishell
 }				t_minishell;
 
 char		**ft_pathfinder(t_env **head);
-char		**ft_strsdup(char **strs);
 char		**ft_expand_var(t_env **head, char **cmds);
 void		ft_parse_env(t_env **head, char **envp);
 char		**ft_expand_path(t_env **head, char **cmds);
 
+t_env		*add_node(t_env *head, char *key, char *value);
 
 t_cmdlist	*ft_cmdlist(char *cmd_line, t_minishell *data);
 void		ft_print_cmdlist(t_cmdlist *cmds);
 
 void		pipex(t_minishell *data);
-void		exec_cmd(t_minishell *data, char *buffer);
+
+/* Built-ins */
+
+void	ft_built_in_cd(char **full_cmd);
+void	ft_built_in_exit(void);
+void	ft_built_in_env(t_env **head);
+void	ft_built_in_pwd(void);
+void    ft_built_in_export(t_env **head, char **full_cmd);
+void	ft_built_in_unset(t_env **head, char *key);
 
 #endif
