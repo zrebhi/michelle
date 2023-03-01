@@ -6,7 +6,7 @@
 /*   By: zrebhi <zrebhi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:12:12 by zrebhi            #+#    #+#             */
-/*   Updated: 2023/02/28 14:36:52 by zrebhi           ###   ########.fr       */
+/*   Updated: 2023/03/01 11:42:38 by zrebhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,70 @@ void	ft_redirect_outfile_append(char **parsed_line, t_cmdlist *cmds, int i)
 		perror("open outfile");
 }
 
-void	ft_redirect_heredoc(char **parsed_line, t_cmdlist *cmds, int *i)
+void	ft_redirect_heredoc(char **parsed_line, t_cmdlist *cmds, t_minishell *data)
 {
 	cmds->here_doc = 1;
-	cmds->limiter = parsed_line[(*i) + 1];
-	(*i)++;
+	cmds->limiter = parsed_line[i + 1];
+	ft_heredoc
+}
+
+
+void	ft_check_heredoc(char **parsed_line, t_cmdlist *cmds)
+{
+	int	i;
+
+	i = -1;
+	while (parsed_line[++i])
+	{
+		if (!strcmp(parsed_line[i], "|"))
+			ft_redirect_pipe(&cmds);
+		else if (!strcmp(parsed_line[i], "<<"))
+			ft_redirect_heredoc(parsed_line, cmds, &i);
+	}
+}
+
+static void	ft_input(t_cmdlist *cmds)
+{
+	size_t	length;
+	char	*line;
+
+	if (close(cmds->here_doc_pipe[0]) == -1)
+		return (perror("close pipe"));
+	while (1)
+	{
+		line = readline("> ");
+		if (!line)
+			return ;
+		if (ft_strlen(line) - 1 > ft_strlen(data->cmds->limiter))
+			length = ft_strlen(line) - 1;
+		else
+			length = ft_strlen(data->cmds->limiter);
+		if (!ft_strncmp(line, data->cmds->limiter, length))
+		{
+			if (close(cmds->here_doc[1]) == -1)
+				return (perror("close pipe"));
+			exit(EXIT_SUCCESS) ;
+		}
+		ft_putstr_fd(line, cmds->here_doc_pipe[1]);
+		ft_putstr_fd("\n", cmds->here_doc_pipe[1]);
+		free(line);
+	}
+}
+
+void	ft_heredoc(t_cmdlist *cmds)
+{
+	pid_t	here_doc_pid;
+
+	if (pipe(cmds->here_doc_pipe) == -1)
+		return (perror("heredoc pipe"));
+	here_doc_pid = fork();
+	if (here_doc_pid == -1)
+		return (perror("heredoc fork"));
+	if (here_doc_pid != 0 && close(cmds->here_doc[1]) == -1)
+		return ((void)perror("close pipe"));
+	if (here_doc_pid == 0)
+		ft_input(data);
+	waitpid(here_doc_pid, NULL, 0);
 }
 
 void	ft_redirection(char **parsed_line, t_cmdlist *cmds)
@@ -70,8 +129,6 @@ void	ft_redirection(char **parsed_line, t_cmdlist *cmds)
 	{
 		if (!strcmp(parsed_line[i], "|"))
 			ft_redirect_pipe(&cmds);
-		else if (!strcmp(parsed_line[i], "<<"))
-			ft_redirect_heredoc(parsed_line, cmds, &i);
 		else if (!strcmp(parsed_line[i], "<"))
 			ft_redirect_infile(parsed_line, cmds, i);
 		else if (!strcmp(parsed_line[i], ">>"))

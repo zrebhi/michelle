@@ -39,6 +39,7 @@ typedef struct s_cmdlist
 	int             	infile;
 	int	            	outfile;
 	int					here_doc;
+	int					here_doc_pipe[2];
 	char				*limiter;
 	t_pid				cmd_pid;
     struct s_cmdlist	*next;
@@ -73,7 +74,7 @@ void		ft_parse_env(t_env **head, char **envp);
 char		**ft_expand_path(t_env **head, char **cmds);
 <<<<<<< HEAD
 
-t_env		*add_node(t_env *head, char *key, char *value);
+t_env		*add_node(t_env *head, char *key, char *value);\
 =======
 char		*ft_get_env(t_env **head_env, char *key);
 >>>>>>> 207845660e82b5c497581a6154c3786f767bccd9

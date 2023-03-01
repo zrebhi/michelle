@@ -6,7 +6,7 @@
 /*   By: zrebhi <zrebhi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 13:17:49 by zrebhi            #+#    #+#             */
-/*   Updated: 2023/02/28 14:30:53 by zrebhi           ###   ########.fr       */
+/*   Updated: 2023/03/01 11:32:11 by zrebhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,9 @@ void	pipex_commands(t_minishell *data)
 		{
 			if (!data->cmds->limiter)
 				return ;
-			ft_heredoc(data);
+			dup2(data->cmds->here_doc_pipe[0], STDIN_FILENO);
+			if (close(data->here_doc_pipe[0]) == -1)
+				return (perror("close pipe"));
 		}
 		if (pipe(data->end) == -1)
 			return ((void)perror("pipe"));
